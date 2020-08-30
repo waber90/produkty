@@ -13,11 +13,11 @@ class OrderController {
         this.repository = repository;
     }
 
-    @GetMapping("order/{id}")
+    @GetMapping("orders/{id}")
     @ResponseBody
     ResponseEntity getOrder(@PathVariable("id") Long id) {
         try {
-            Order order = repository.getOne(id);
+            Order order = repository.findById(id).get();
             return new ResponseEntity(order, null, HttpStatus.OK);
         } catch (NoSuchProductException e) {
             return new ResponseEntity(e.getMessage(), null, HttpStatus.NOT_FOUND);
